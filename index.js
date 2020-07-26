@@ -64,19 +64,15 @@ HashTable.prototype.get = function(key) {
 }
 
 HashTable.prototype.retrieveAll = function(){
-  hashList = []
+  let hashList = []
   for (index in this.buckets) {
-    currentNode = this.buckets[index]
-    if (!currentNode.next) {
-      hashList.push(currentNode)
-    } else {
-      while (currentNode.next) {
+    let currentNode = this.buckets[index]
+    while(currentNode) {
       hashList.push(currentNode)
       currentNode = currentNode.next
-      }
+    }
 
-    }    
-  }
+  }    
   return hashList
 };
 
