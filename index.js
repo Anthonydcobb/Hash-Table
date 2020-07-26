@@ -42,8 +42,49 @@ HashTable.prototype.insert = function(key, value) {
     currentNode.next = new HashNode(key, value)
     
   }
-  
 }
+
+HashTable.prototype.get = function(key) {
+  let index = this.hash(key)
+  if(!this.buckets[index]){
+    return `not found`
+  } 
+  if (this.buckets[index].key === key) {
+    return this.buckets[index].value
+  } else {
+    let currentNode = this.buckets[index];
+    while (currentNode.next) {
+      if (currentNode.key === key) {
+        return currentNode.value
+    }
+    currentNode = currentNode.next
+    }
+    return `not found`
+  }
+}
+
+HashTable.prototype.retrieveAll = function(){
+  hashList = []
+  for (index in this.buckets) {
+    currentNode = this.buckets[index]
+    if (!currentNode.next) {
+      hashList.push(currentNode)
+    } else {
+      while (currentNode.next) {
+      hashList.push(currentNode)
+      currentNode = currentNode.next
+      }
+
+    }    
+  }
+  return hashList
+};
+
+
+
+
+
+
 
 
 let myHT = new HashTable(30);
@@ -56,11 +97,10 @@ myHT.insert('anthony', 'ant2222@gmail.com')
 myHT.insert('hank', 'hank@gmail.com')
 myHT.insert('jo', 'jo@gmail.com')
 myHT.insert('boop', 'boop@gmail.com')
-myHT.insert('snoopy', 'snoop@gmail.com')
 myHT.insert('sonopy', 'snopo@gmail.com')
 myHT.insert('arrggg', 'a@gmail.com')
 myHT.insert('jim', 'b@gmail.com')
 myHT.insert('slim', 'bigguy@gmail.com')
 
 
-console.log(myHT)
+myHT.retrieveAll()
